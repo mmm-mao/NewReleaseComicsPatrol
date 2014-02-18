@@ -21,4 +21,7 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+    compile 'com.android.support:appcompat-v7:+'
+    compile 'commons-codec:commons-codec:1.5'
 }

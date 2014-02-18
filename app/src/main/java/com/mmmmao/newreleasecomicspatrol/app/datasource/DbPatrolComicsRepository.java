@@ -7,14 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.mmmmao.newreleasecomicspatrol.app.domain.Author;
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolManga;
+import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.Publisher;
 import com.mmmmao.newreleasecomicspatrol.app.domain.Title;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DbPatrolMangaRepository extends SQLiteOpenHelper {
+public class DbPatrolComicsRepository extends SQLiteOpenHelper {
 
     private final static String DB = "manga.db";
 
@@ -34,7 +34,7 @@ public class DbPatrolMangaRepository extends SQLiteOpenHelper {
 
     private final static String DROP_TABLE = "DROP TABLE" + TABLE;
 
-    public DbPatrolMangaRepository(Context c){
+    public DbPatrolComicsRepository(Context c){
         super(c, DB, null, DB_VERSION);
     }
 
@@ -50,7 +50,7 @@ public class DbPatrolMangaRepository extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean register(PatrolManga manga){
+    public boolean register(PatrolComics manga){
 
         ContentValues values = new ContentValues();
         values.put(TITLE, manga.getTitle().getValue());
@@ -64,7 +64,7 @@ public class DbPatrolMangaRepository extends SQLiteOpenHelper {
 
     }
 
-    public List<PatrolManga> findByAll(){
+    public List<PatrolComics> findByAll(){
 
         final String[] colums = new String[]{TITLE, AUTHOR, PUBLISHER};
 
@@ -75,22 +75,22 @@ public class DbPatrolMangaRepository extends SQLiteOpenHelper {
         final int authorIndex = cursor.getColumnIndex(AUTHOR);
         final int publisherIndex = cursor.getColumnIndex(PUBLISHER);
 
-        List<PatrolManga> patrolMangaList = new ArrayList<PatrolManga>();
+        List<PatrolComics> patrolComicsList = new ArrayList<PatrolComics>();
         while(cursor.moveToNext()){
 
             Title title = new Title(cursor.getString(titleIndex));
             Author author = new Author(cursor.getString(authorIndex));
             Publisher publisher = new Publisher(cursor.getString(publisherIndex));
 
-            PatrolManga patrolManga = new PatrolManga(title, author, publisher);
-            patrolMangaList.add(patrolManga);
+            PatrolComics patrolComics = new PatrolComics(title, author, publisher);
+            patrolComicsList.add(patrolComics);
         }
 
 
         cursor.close();
         close();
 
-        return patrolMangaList;
+        return patrolComicsList;
 
     }
 

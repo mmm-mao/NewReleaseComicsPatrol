@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.mmmmao.newreleasecomicspatrol.app.datasource.HttpMangaRepository;
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolManga;
+import com.mmmmao.newreleasecomicspatrol.app.datasource.HttpComicsRepository;
+import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
 
 public class RegisterInputActivity extends Activity {
 
@@ -39,22 +39,22 @@ public class RegisterInputActivity extends Activity {
     }
 
 
-    private class GetXmlAsyncTask extends AsyncTask<String, Void, PatrolManga> {
+    private class GetXmlAsyncTask extends AsyncTask<String, Void, PatrolComics> {
 
         @Override
-        protected PatrolManga doInBackground(String... params) {
+        protected PatrolComics doInBackground(String... params) {
 
             System.out.println("aaaaaaaa");
 
 
-            HttpMangaRepository httpMangaRepository = new HttpMangaRepository();
+            HttpComicsRepository httpComicsRepository = new HttpComicsRepository();
 
-            return httpMangaRepository.searchMangaByTitleAndKeyword(params);
+            return httpComicsRepository.searchMangaByTitleAndKeyword(params);
 
         }
 
         @Override
-        protected void onPostExecute(PatrolManga manga) {
+        protected void onPostExecute(PatrolComics manga) {
 
             if(manga == null){
                 Toast.makeText(getApplicationContext(), "指定された内容で漫画が見つかりませんでした。再度検索をお願いします。", Toast.LENGTH_LONG).show();

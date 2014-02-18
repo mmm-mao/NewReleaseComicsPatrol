@@ -2,7 +2,7 @@ package com.mmmmao.newreleasecomicspatrol.app.domain;
 
 import java.io.Serializable;
 
-public class PatrolManga implements Serializable {
+public class PatrolComics implements Serializable {
 
     private final Title title;
 
@@ -10,7 +10,7 @@ public class PatrolManga implements Serializable {
 
     private final Publisher publisher;
 
-    public PatrolManga(Title title, Author author, Publisher publisher){
+    public PatrolComics(Title title, Author author, Publisher publisher){
         this.title = title;
         this.author = author;
         this.publisher = publisher;

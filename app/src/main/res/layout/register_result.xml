@@ -23,7 +23,7 @@
         android:text="登録が完了しました。" />
 
     <ListView
-        android:id="@+id/patrolMangaList"
+        android:id="@+id/patrolComicsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"

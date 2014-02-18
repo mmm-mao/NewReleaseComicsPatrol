@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolManga;
+import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
 
 public class RegisterConfirmActivity  extends Activity {
 
-    PatrolManga manga;
+    PatrolComics manga;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class RegisterConfirmActivity  extends Activity {
         setContentView(R.layout.register_confirm);
 
         Intent intent = getIntent();
-        manga = (PatrolManga)intent.getSerializableExtra("manga");
+        manga = (PatrolComics)intent.getSerializableExtra("manga");
 
         final TextView title = (TextView)findViewById(R.id.title);
         title.setText(manga.getTitle().getValue());

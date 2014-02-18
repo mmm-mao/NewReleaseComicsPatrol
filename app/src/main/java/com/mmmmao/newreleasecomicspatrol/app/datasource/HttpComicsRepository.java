@@ -5,7 +5,7 @@ import android.util.Log;
 import com.mmmmao.newreleasecomicspatrol.app.domain.Amount;
 import com.mmmmao.newreleasecomicspatrol.app.domain.Author;
 import com.mmmmao.newreleasecomicspatrol.app.domain.Isbn;
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolManga;
+import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.PublicationDate;
 import com.mmmmao.newreleasecomicspatrol.app.domain.Publisher;
 import com.mmmmao.newreleasecomicspatrol.app.domain.Title;
@@ -17,9 +17,9 @@ import org.xmlpull.v1.XmlPullParser;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HttpMangaRepository {
+public class HttpComicsRepository {
 
-    public PatrolManga searchMangaByTitleAndKeyword(String... params) {
+    public PatrolComics searchMangaByTitleAndKeyword(String... params) {
 
         Map<String, String> addSearchData = new HashMap<String, String>();
         addSearchData.put("Title", params[0]);
@@ -30,7 +30,7 @@ public class HttpMangaRepository {
 
     }
 
-    private PatrolManga createPatrolManga(XmlPullParser xmlPullParser, String inputTitle) {
+    private PatrolComics createPatrolManga(XmlPullParser xmlPullParser, String inputTitle) {
 
         int eventType;
         boolean itemFlag = false;
@@ -86,7 +86,7 @@ public class HttpMangaRepository {
                         tag = xmlPullParser.getName();
                         if (tag.equals("Item")) {
                             if (bindingFlag == true) {
-                                return new PatrolManga(title, autor, publisher);
+                                return new PatrolComics(title, autor, publisher);
                             }
 
                             itemFlag = false;

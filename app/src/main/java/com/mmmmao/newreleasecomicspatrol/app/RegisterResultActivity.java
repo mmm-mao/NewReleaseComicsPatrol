@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.mmmmao.newreleasecomicspatrol.app.datasource.DbPatrolMangaRepository;
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolManga;
+import com.mmmmao.newreleasecomicspatrol.app.datasource.DbPatrolComicsRepository;
+import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
 
 import java.util.List;
 
@@ -21,19 +21,19 @@ public class RegisterResultActivity  extends Activity {
         setContentView(R.layout.register_result);
 
         Intent intent = getIntent();
-        PatrolManga manga = (PatrolManga)intent.getSerializableExtra("manga");
+        PatrolComics manga = (PatrolComics)intent.getSerializableExtra("manga");
 
-        DbPatrolMangaRepository dbPatrolMangaRepository = new DbPatrolMangaRepository(this);
-        dbPatrolMangaRepository.register(manga);
+        DbPatrolComicsRepository dbPatrolComicsRepository = new DbPatrolComicsRepository(this);
+        dbPatrolComicsRepository.register(manga);
 
-        List<PatrolManga> patrolMangaList= dbPatrolMangaRepository.findByAll();
+        List<PatrolComics> patrolComicsList = dbPatrolComicsRepository.findByAll();
 
         //ListView初期化
-        ListView list = (ListView)findViewById(R.id.patrolMangaList);
+        ListView list = (ListView)findViewById(R.id.patrolComicsList);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-        for(PatrolManga patrolManga : patrolMangaList){
-            adapter.add(patrolManga.getView());
+        for(PatrolComics patrolComics : patrolComicsList){
+            adapter.add(patrolComics.getView());
         }
 
         list.setAdapter(adapter);

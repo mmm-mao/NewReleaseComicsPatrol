@@ -21,6 +21,8 @@ public class RequestAmazon {
 
     public XmlPullParser httpToXml(Map<String, String> addSearchData){
 
+        System.out.println("aaaaaaaa");
+
         try {
 
             SignedRequestsHelper helper;
@@ -30,8 +32,6 @@ public class RequestAmazon {
                 e.printStackTrace();
                 return null;
             }
-
-            Log.d("XmlPullParserSampleUrl", "Error");
 
 			/*
 			 * Here is an example in map form, where the request parameters are stored in a map.
@@ -60,7 +60,7 @@ public class RequestAmazon {
             return xmlPullParser;
 
         } catch (Exception e) {
-            Log.d("XmlPullParserSampleUrl", "Error");
+            Log.d("XmlPullParserSampleUrl", e.getMessage());
         }
 
         return null;

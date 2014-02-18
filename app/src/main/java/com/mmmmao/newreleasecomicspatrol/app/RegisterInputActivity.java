@@ -44,6 +44,9 @@ public class RegisterInputActivity extends Activity {
         @Override
         protected PatrolManga doInBackground(String... params) {
 
+            System.out.println("aaaaaaaa");
+
+
             HttpMangaRepository httpMangaRepository = new HttpMangaRepository();
 
             return httpMangaRepository.searchMangaByTitleAndKeyword(params);

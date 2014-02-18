@@ -104,7 +104,7 @@ public class HttpMangaRepository {
 
             }
         } catch (Exception e) {
-            Log.d("XmlPullParserSampleUrl", "Error");
+            Log.d("XmlPullParserSampleUrl", e.getMessage());
         }
 
         return null;

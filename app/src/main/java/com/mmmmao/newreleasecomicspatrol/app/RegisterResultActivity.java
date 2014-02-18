@@ -21,10 +21,10 @@ public class RegisterResultActivity  extends Activity {
         setContentView(R.layout.register_result);
 
         Intent intent = getIntent();
-        PatrolComics manga = (PatrolComics)intent.getSerializableExtra("manga");
+        PatrolComics comics = (PatrolComics)intent.getSerializableExtra("comics");
 
         DbPatrolComicsRepository dbPatrolComicsRepository = new DbPatrolComicsRepository(this);
-        dbPatrolComicsRepository.register(manga);
+        dbPatrolComicsRepository.register(comics);
 
         List<PatrolComics> patrolComicsList = dbPatrolComicsRepository.findByAll();
 

@@ -27,14 +27,14 @@ public class RegisterInputActivity extends Activity {
         return true;
     }
 
-    public void searchManga(View v) {
+    public void searchComics(View v) {
         //-----[xmlの取得先]
 
-        EditText serchTitle = (EditText)findViewById(R.id.title);
-        EditText serchKeyword = (EditText)findViewById(R.id.keyword);
+        EditText searchTitle = (EditText)findViewById(R.id.title);
+        EditText searchKeyword = (EditText)findViewById(R.id.keyword);
 
         GetXmlAsyncTask getXmlAsyncTask = new GetXmlAsyncTask();
-        getXmlAsyncTask.execute(serchTitle.getText().toString(), serchKeyword.getText().toString());
+        getXmlAsyncTask.execute(searchTitle.getText().toString(), searchKeyword.getText().toString());
 
     }
 
@@ -44,25 +44,22 @@ public class RegisterInputActivity extends Activity {
         @Override
         protected PatrolComics doInBackground(String... params) {
 
-            System.out.println("aaaaaaaa");
-
-
             HttpComicsRepository httpComicsRepository = new HttpComicsRepository();
 
-            return httpComicsRepository.searchMangaByTitleAndKeyword(params);
+            return httpComicsRepository.searchComicsByTitleAndKeyword(params);
 
         }
 
         @Override
-        protected void onPostExecute(PatrolComics manga) {
+        protected void onPostExecute(PatrolComics comics) {
 
-            if(manga == null){
+            if(comics == null){
                 Toast.makeText(getApplicationContext(), "指定された内容で漫画が見つかりませんでした。再度検索をお願いします。", Toast.LENGTH_LONG).show();
                 return;
             }
 
             Intent intent = new Intent(getApplicationContext(), RegisterConfirmActivity.class);
-            intent.putExtra("manga", manga);
+            intent.putExtra("comics", comics);
 
             startActivity(intent);
         }

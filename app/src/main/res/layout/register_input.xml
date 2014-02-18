@@ -35,7 +35,7 @@
         android:layout_alignLeft="@+id/keyword"
         android:layout_below="@+id/keyword"
         android:layout_marginTop="55dp"
-        android:onClick="searchManga"
+        android:onClick="searchComics"
         android:text="検索" />
 
     <EditText

@@ -10,7 +10,7 @@ import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
 
 public class RegisterConfirmActivity  extends Activity {
 
-    PatrolComics manga;
+    PatrolComics comics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,22 +18,22 @@ public class RegisterConfirmActivity  extends Activity {
         setContentView(R.layout.register_confirm);
 
         Intent intent = getIntent();
-        manga = (PatrolComics)intent.getSerializableExtra("manga");
+        comics = (PatrolComics)intent.getSerializableExtra("comics");
 
         final TextView title = (TextView)findViewById(R.id.title);
-        title.setText(manga.getTitle().getValue());
+        title.setText(comics.getTitle().getValue());
 
         final TextView author = (TextView)findViewById(R.id.author);
-        author.setText(manga.getAuthor().getValue());
+        author.setText(comics.getAuthor().getValue());
 
         final TextView publisher = (TextView)findViewById(R.id.publisher);
-        publisher.setText(manga.getPublisher().getValue());
+        publisher.setText(comics.getPublisher().getValue());
 
     }
 
     public void toRegister(View v){
         Intent intent = new Intent(getApplicationContext(), RegisterResultActivity.class);
-        intent.putExtra("manga", manga);
+        intent.putExtra("comics", comics);
         startActivity(intent);
     }
 

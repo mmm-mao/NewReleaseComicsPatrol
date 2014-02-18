@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class HttpComicsRepository {
 
-    public PatrolComics searchMangaByTitleAndKeyword(String... params) {
+    public PatrolComics searchComicsByTitleAndKeyword(String... params) {
 
         Map<String, String> addSearchData = new HashMap<String, String>();
         addSearchData.put("Title", params[0]);

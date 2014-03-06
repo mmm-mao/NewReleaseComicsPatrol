@@ -2,14 +2,14 @@ package com.mmmmao.newreleasecomicspatrol.app.datasource;
 
 import android.util.Log;
 
-import com.mmmmao.newreleasecomicspatrol.app.domain.Amount;
-import com.mmmmao.newreleasecomicspatrol.app.domain.Author;
-import com.mmmmao.newreleasecomicspatrol.app.domain.Isbn;
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.PublicationDate;
-import com.mmmmao.newreleasecomicspatrol.app.domain.Publisher;
-import com.mmmmao.newreleasecomicspatrol.app.domain.Title;
-import com.mmmmao.newreleasecomicspatrol.app.domain.Url;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Amount;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Author;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Isbn;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PublicationDate;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Publisher;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Title;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Url;
 import com.mmmmao.newreleasecomicspatrol.app.library.RequestAmazon;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -26,17 +26,17 @@ public class HttpComicsRepository {
         addSearchData.put("Keywords", params[1]);
 
         RequestAmazon requestAmazon = new RequestAmazon();
-        return createPatrolManga(requestAmazon.httpToXml(addSearchData),  params[0]);
+        return createPatrolComics(requestAmazon.httpToXml(addSearchData), params[0]);
 
     }
 
-    private PatrolComics createPatrolManga(XmlPullParser xmlPullParser, String inputTitle) {
+    private PatrolComics createPatrolComics(XmlPullParser xmlPullParser, String inputTitle) {
 
         int eventType;
         boolean itemFlag = false;
         boolean bindingFlag = false;
         Title title = null;
-        Author autor = null;
+        Author author = null;
         Amount amount = null;
         Isbn isbn = null;
         PublicationDate publicationDate = null;
@@ -61,8 +61,8 @@ public class HttpComicsRepository {
                             if (tag.equals("Title")) {
                                 title = new Title(inputTitle);
                             } else if (tag.equals("Author")) {
-                                autor = new Author(xmlPullParser.nextText());
-                                System.out.println(autor.getValue());
+                                author = new Author(xmlPullParser.nextText());
+                                System.out.println(author.getValue());
                             } else if (tag.equals("Amount")) {
                                 amount = new Amount(Integer.parseInt(xmlPullParser.nextText()));
                                 System.out.println(amount.getValue());
@@ -86,13 +86,13 @@ public class HttpComicsRepository {
                         tag = xmlPullParser.getName();
                         if (tag.equals("Item")) {
                             if (bindingFlag == true) {
-                                return new PatrolComics(title, autor, publisher);
+                                return new PatrolComics(null, title, author, publisher);
                             }
 
                             itemFlag = false;
                             bindingFlag = false;
                             title = null;
-                            autor = null;
+                            author = null;
                             amount = null;
                             isbn = null;
                             publicationDate = null;

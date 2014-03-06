@@ -1,8 +1,10 @@
-package com.mmmmao.newreleasecomicspatrol.app.domain;
+package com.mmmmao.newreleasecomicspatrol.app.domain.comics;
 
 import java.io.Serializable;
 
 public class PatrolComics implements Serializable {
+
+    private final ComicsId comicsId;
 
     private final Title title;
 
@@ -10,7 +12,8 @@ public class PatrolComics implements Serializable {
 
     private final Publisher publisher;
 
-    public PatrolComics(Title title, Author author, Publisher publisher){
+    public PatrolComics(ComicsId comicsId, Title title, Author author, Publisher publisher){
+        this.comicsId = comicsId;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
@@ -20,6 +23,8 @@ public class PatrolComics implements Serializable {
     public String getView(){
         return title.getValue() + ":" + author.getValue() + ":" + publisher.getValue();
     }
+
+    public int getComicsId() { return comicsId.getValue(); }
 
     public Title getTitle() {
         return title;
@@ -32,6 +37,8 @@ public class PatrolComics implements Serializable {
     public Publisher getPublisher() {
         return publisher;
     }
+
+
 
 }
 

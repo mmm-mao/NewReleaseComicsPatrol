@@ -1,4 +1,4 @@
-package com.mmmmao.newreleasecomicspatrol.app.domain;
+package com.mmmmao.newreleasecomicspatrol.app.domain.comics;
 
 import java.io.Serializable;
 

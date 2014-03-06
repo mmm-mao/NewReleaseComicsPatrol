@@ -16,4 +16,12 @@
         android:onClick="next"
         android:text="次へ" />
 
+    <Button
+        android:id="@+id/registeredList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:onClick="registeredList"
+        android:text="登録済みの漫画" />
+
 </RelativeLayout>

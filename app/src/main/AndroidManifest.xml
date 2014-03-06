@@ -22,6 +22,7 @@
         <activity android:name=".RegisterInputActivity"/>
         <activity android:name=".RegisterConfirmActivity"/>
         <activity android:name=".RegisterResultActivity"/>
+        <activity android:name=".RegisteredListActivity"/>
     </application>
 
 </manifest>

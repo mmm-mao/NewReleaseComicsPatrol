@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mmmmao.newreleasecomicspatrol.app.datasource.HttpComicsRepository;
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
 
 public class RegisterInputActivity extends Activity {
 

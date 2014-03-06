@@ -31,6 +31,13 @@ public class MainActivity extends Activity {
     public void next(View v) {
 
         Intent intent = new Intent(getApplicationContext(), RegisterInputActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void registeredList(View v) {
+
+        Intent intent = new Intent(getApplicationContext(), RegisteredListActivity.class);
 
         startActivity(intent);
 

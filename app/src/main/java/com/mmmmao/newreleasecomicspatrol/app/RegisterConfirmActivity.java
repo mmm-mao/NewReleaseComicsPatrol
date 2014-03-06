@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
 
 public class RegisterConfirmActivity  extends Activity {
 

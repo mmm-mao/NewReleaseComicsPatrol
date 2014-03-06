@@ -7,7 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.mmmmao.newreleasecomicspatrol.app.datasource.DbPatrolComicsRepository;
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
 
 import java.util.List;
 
@@ -26,13 +27,13 @@ public class RegisterResultActivity  extends Activity {
         DbPatrolComicsRepository dbPatrolComicsRepository = new DbPatrolComicsRepository(this);
         dbPatrolComicsRepository.register(comics);
 
-        List<PatrolComics> patrolComicsList = dbPatrolComicsRepository.findByAll();
+        ComicsList comicsList = dbPatrolComicsRepository.findAllByRegisteredComics();
 
         //ListView初期化
         ListView list = (ListView)findViewById(R.id.patrolComicsList);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-        for(PatrolComics patrolComics : patrolComicsList){
+        for(PatrolComics patrolComics : comicsList.getList()){
             adapter.add(patrolComics.getView());
         }
 

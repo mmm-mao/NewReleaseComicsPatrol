@@ -1,4 +1,5 @@
 apply plugin: 'android'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 19
@@ -24,4 +25,15 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:+'
     compile 'commons-codec:commons-codec:1.5'
+    compile 'org.projectlombok:lombok:1.12.4'
+    apt "org.androidannotations:androidannotations:3.0.1"
+    compile "org.androidannotations:androidannotations-api:3.0.1"
+}
+
+// aptの設定
+apt {
+    arguments {
+        androidManifestFile variant.processResources.manifestFile
+        resourcePackageName 'org.yohei.androidannotationssample' // パッケージ名
+    }
 }

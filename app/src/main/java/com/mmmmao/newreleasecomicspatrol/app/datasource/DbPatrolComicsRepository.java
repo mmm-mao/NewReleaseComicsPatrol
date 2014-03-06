@@ -5,11 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-import com.mmmmao.newreleasecomicspatrol.app.domain.Author;
-import com.mmmmao.newreleasecomicspatrol.app.domain.PatrolComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.Publisher;
-import com.mmmmao.newreleasecomicspatrol.app.domain.Title;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Author;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.ComicsId;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Publisher;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Title;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +20,8 @@ import java.util.List;
 public class DbPatrolComicsRepository extends SQLiteOpenHelper {
 
     private final static String DB = "manga.db";
-
     private final static String TABLE = "patrol";
-
+    private final static String ID = "_id";
     private final static String TITLE = "title";
     private final static String AUTHOR = "author";
     private final static String PUBLISHER = "publisher";
@@ -64,33 +66,45 @@ public class DbPatrolComicsRepository extends SQLiteOpenHelper {
 
     }
 
-    public List<PatrolComics> findByAll(){
+    public boolean delete(int id){
+        getWritableDatabase().delete(TABLE, "_id" + "=" + id, null);
 
-        final String[] colums = new String[]{TITLE, AUTHOR, PUBLISHER};
+        close();
 
-        Cursor cursor = getReadableDatabase().query(TABLE, colums, null, null, null, null, "_id DESC");
+        Log.d("sample", "delete");
+        return true;
+    }
+
+    public ComicsList findAllByRegisteredComics(){
+
+        final String[] columns = new String[]{ID, TITLE, AUTHOR, PUBLISHER};
+
+        Cursor cursor = getReadableDatabase().query(TABLE, columns, null, null, null, null, "_id ASC");
 
 
+        final int idIndex = cursor.getColumnIndex(ID);
         final int titleIndex = cursor.getColumnIndex(TITLE);
         final int authorIndex = cursor.getColumnIndex(AUTHOR);
         final int publisherIndex = cursor.getColumnIndex(PUBLISHER);
 
-        List<PatrolComics> patrolComicsList = new ArrayList<PatrolComics>();
+        List<PatrolComics> tempComicsList = new ArrayList<PatrolComics>();
         while(cursor.moveToNext()){
 
+            ComicsId comicsId = new ComicsId(cursor.getInt(idIndex));
             Title title = new Title(cursor.getString(titleIndex));
             Author author = new Author(cursor.getString(authorIndex));
             Publisher publisher = new Publisher(cursor.getString(publisherIndex));
 
-            PatrolComics patrolComics = new PatrolComics(title, author, publisher);
-            patrolComicsList.add(patrolComics);
+            PatrolComics patrolComics = new PatrolComics(comicsId, title, author, publisher);
+            tempComicsList.add(patrolComics);
         }
+        ComicsList comicsList = new ComicsList(tempComicsList);
 
 
         cursor.close();
         close();
 
-        return patrolComicsList;
+        return comicsList;
 
     }
 

@@ -46,7 +46,7 @@ public class RegisterInputActivity extends Activity {
 
             HttpComicsRepository httpComicsRepository = new HttpComicsRepository();
 
-            return httpComicsRepository.searchComicsByTitleAndKeyword(params);
+            return httpComicsRepository.searchPatrolComics(params);
 
         }
 

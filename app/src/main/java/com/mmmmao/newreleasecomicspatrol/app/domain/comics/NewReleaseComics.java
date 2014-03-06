@@ -2,8 +2,9 @@ package com.mmmmao.newreleasecomicspatrol.app.domain.comics;
 
 import java.io.Serializable;
 
+public class NewReleaseComics implements Serializable {
 
-public class YOTEIManga implements Serializable{
+    private final ComicsId comicsId;
 
     private final Title title;
 
@@ -19,7 +20,8 @@ public class YOTEIManga implements Serializable{
 
     private final Url url;
 
-    public YOTEIManga(Title title, Author author, Amount amount, PublicationDate publicationDate, Isbn isbn, Publisher publisher, Url url){
+    public NewReleaseComics(ComicsId comicsId, Title title, Author author, Amount amount, PublicationDate publicationDate, Isbn isbn, Publisher publisher, Url url){
+        this.comicsId = comicsId;
         this.title = title;
         this.author = author;
         this.amount = amount;
@@ -59,4 +61,6 @@ public class YOTEIManga implements Serializable{
     }
 
 
+
 }
+

@@ -24,4 +24,21 @@
         android:onClick="registeredList"
         android:text="登録済みの漫画" />
 
+    <Button
+        android:id="@+id/newReleaseCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:onClick="newReleaseCheck"
+        android:text="発売予定漫画チェック" />
+
+    <ListView
+        android:id="@+id/patrolComicsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="300dp" >
+    </ListView>
+
 </RelativeLayout>

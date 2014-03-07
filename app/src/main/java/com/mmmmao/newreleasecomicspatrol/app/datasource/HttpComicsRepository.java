@@ -1,7 +1,9 @@
 package com.mmmmao.newreleasecomicspatrol.app.datasource;
 
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Author;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.NewReleaseComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Publisher;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Title;
 import com.mmmmao.newreleasecomicspatrol.app.library.RequestAmazon;
 
@@ -26,11 +28,14 @@ public class HttpComicsRepository {
 
     }
 
-    public NewReleaseComics searchNewReleaseComics(String... params) {
+    public NewReleaseComics searchNewReleaseComics(PatrolComics patrolComics) {
 
         Map<String, String> addSearchData = new HashMap<String, String>();
-        addSearchData.put("Title", params[0]);
-        addSearchData.put("Keywords", params[1]);
+        addSearchData.put("Title", patrolComics.getTitle().getValue());
+        addSearchData.put("Author", patrolComics.getAuthor().getValue());
+        addSearchData.put("Publisher", patrolComics.getPublisher().getValue());
+        addSearchData.put("Sort", "daterank");
+        addSearchData.put("MaximumPrice", "800");
 
         RequestAmazon requestAmazon = new RequestAmazon();
         XmlPullParser xmlPullParser = requestAmazon.httpToXml(addSearchData);

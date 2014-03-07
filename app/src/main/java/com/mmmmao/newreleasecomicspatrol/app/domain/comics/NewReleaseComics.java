@@ -32,6 +32,10 @@ public class NewReleaseComics implements Serializable {
 
     }
 
+    public boolean registerVerify(){
+        return publicationDate.verify();
+    }
+
     public Title getTitle() {
         return title;
     }

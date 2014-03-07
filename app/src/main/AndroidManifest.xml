@@ -23,6 +23,8 @@
         <activity android:name=".RegisterConfirmActivity"/>
         <activity android:name=".RegisterResultActivity"/>
         <activity android:name=".RegisteredListActivity"/>
+
+        <service android:name=".service.NewReleaseComicsCheckIntentService" />
     </application>
 
 </manifest>

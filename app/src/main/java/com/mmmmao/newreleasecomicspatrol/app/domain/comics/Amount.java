@@ -14,4 +14,13 @@ public class Amount implements Serializable {
         return value;
     }
 
+    public boolean verify(){
+
+        if(value > 1000){
+            return false;
+        }
+
+        return true;
+    }
+
 }

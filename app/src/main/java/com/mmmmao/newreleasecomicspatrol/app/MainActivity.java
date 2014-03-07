@@ -2,23 +2,43 @@ package com.mmmmao.newreleasecomicspatrol.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.mmmmao.newreleasecomicspatrol.app.datasource.DbNewReleaseComicsRepository;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
+import com.mmmmao.newreleasecomicspatrol.app.library.DailyScheduler;
+import com.mmmmao.newreleasecomicspatrol.app.service.NewReleaseComicsCheckIntentService;
 
 public class MainActivity extends Activity {
+
+    static ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DailyScheduler scheduler = new DailyScheduler(getApplicationContext());
+        scheduler.setByTime(NewReleaseComicsCheckIntentService.class, 4, 0, -1);
+
+        DbNewReleaseComicsRepository dbNewReleaseComicsRepository = new DbNewReleaseComicsRepository(this);
+        ComicsList comicsList = dbNewReleaseComicsRepository.findAllByRegisteredComics();
+
+        //ListView初期化
+        ListView list = (ListView)findViewById(R.id.patrolComicsList);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+
+        for(PatrolComics patrolComics : comicsList.getList()){
+            adapter.add(patrolComics.getView());
+        }
+
+        list.setAdapter(adapter);
+
     }
 
     @Override
@@ -40,6 +60,13 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), RegisteredListActivity.class);
 
         startActivity(intent);
+
+    }
+
+    public void newReleaseCheck(View v){
+
+        Intent intent = new Intent(this, NewReleaseComicsCheckIntentService.class);
+        startService(intent);
 
     }
 

@@ -8,10 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Author;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.ComicsId;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComicsId;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Publisher;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Title;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolTitle;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class DbPatrolComicsRepository extends SQLiteOpenHelper {
     public boolean register(PatrolComics manga){
 
         ContentValues values = new ContentValues();
-        values.put(TITLE, manga.getTitle().getValue());
+        values.put(TITLE, manga.getPatrolTitle().getValue());
         values.put(AUTHOR, manga.getAuthor().getValue());
         values.put(PUBLISHER, manga.getPublisher().getValue());
         getWritableDatabase().insert(TABLE, null, values);
@@ -90,12 +90,12 @@ public class DbPatrolComicsRepository extends SQLiteOpenHelper {
         List<PatrolComics> tempComicsList = new ArrayList<PatrolComics>();
         while(cursor.moveToNext()){
 
-            ComicsId comicsId = new ComicsId(cursor.getInt(idIndex));
-            Title title = new Title(cursor.getString(titleIndex));
+            PatrolComicsId patrolComicsId = new PatrolComicsId(cursor.getInt(idIndex));
+            PatrolTitle patrolTitle = new PatrolTitle(cursor.getString(titleIndex));
             Author author = new Author(cursor.getString(authorIndex));
             Publisher publisher = new Publisher(cursor.getString(publisherIndex));
 
-            PatrolComics patrolComics = new PatrolComics(comicsId, title, author, publisher);
+            PatrolComics patrolComics = new PatrolComics(patrolComicsId, patrolTitle, author, publisher);
             tempComicsList.add(patrolComics);
         }
         ComicsList comicsList = new ComicsList(tempComicsList);

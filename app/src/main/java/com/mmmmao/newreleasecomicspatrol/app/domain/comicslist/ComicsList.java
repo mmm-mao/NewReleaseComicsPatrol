@@ -4,9 +4,6 @@ import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 public class ComicsList {
 
     private final List<PatrolComics> list;
@@ -16,12 +13,12 @@ public class ComicsList {
     }
 
     public List<PatrolComics> getList(){
-        return this.list;
+        return list;
     }
 
     public int getComicsIdByDesignationComics(int position){
         PatrolComics patrolComics =  list.get(position);
-        return patrolComics.getComicsId();
+        return patrolComics.getPatrolComicsId();
     }
 
 

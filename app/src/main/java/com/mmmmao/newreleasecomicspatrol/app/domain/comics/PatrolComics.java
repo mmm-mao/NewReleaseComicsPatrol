@@ -4,30 +4,30 @@ import java.io.Serializable;
 
 public class PatrolComics implements Serializable {
 
-    private final ComicsId comicsId;
+    private final PatrolComicsId patrolComicsId;
 
-    private final Title title;
+    private final PatrolTitle patrolTitle;
 
     private final Author author;
 
     private final Publisher publisher;
 
-    public PatrolComics(ComicsId comicsId, Title title, Author author, Publisher publisher){
-        this.comicsId = comicsId;
-        this.title = title;
+    public PatrolComics(PatrolComicsId patrolComicsId, PatrolTitle patrolTitle, Author author, Publisher publisher){
+        this.patrolComicsId = patrolComicsId;
+        this.patrolTitle = patrolTitle;
         this.author = author;
         this.publisher = publisher;
 
     }
 
     public String getView(){
-        return title.getValue() + ":" + author.getValue() + ":" + publisher.getValue();
+        return patrolTitle.getValue() + ":" + author.getValue() + ":" + publisher.getValue();
     }
 
-    public int getComicsId() { return comicsId.getValue(); }
+    public int getPatrolComicsId() { return patrolComicsId.getValue(); }
 
-    public Title getTitle() {
-        return title;
+    public PatrolTitle getPatrolTitle() {
+        return patrolTitle;
     }
 
     public Author getAuthor() {

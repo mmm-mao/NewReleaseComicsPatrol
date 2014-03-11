@@ -2,15 +2,12 @@ package com.mmmmao.newreleasecomicspatrol.app.datasource;
 
 import android.util.Log;
 
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Amount;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Author;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Isbn;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.NewReleaseComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PublicationDate;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Publisher;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Title;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Url;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.Isbn;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseTitle;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.PublicationDate;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolTitle;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.Url;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -29,12 +26,9 @@ class NewReleaseComicsMapper {
         int eventType;
         boolean itemFlag = false;
         boolean bindingFlag = false;
-        Title title = null;
-        Author author = null;
-        Amount amount = null;
+        NewReleaseTitle newReleaseTitle = null;
         Isbn isbn = null;
         PublicationDate publicationDate = null;
-        Publisher publisher = null;
         Url url = null;
         try {
             while ((eventType = xmlPullParser.next()) != XmlPullParser.END_DOCUMENT) {
@@ -53,22 +47,13 @@ class NewReleaseComicsMapper {
                         if (itemFlag == true) {
 
                             if(tag.equals("Title")){
-                                title = new Title(xmlPullParser.nextText());
-                            } else if (tag.equals("Author")) {
-                                author = new Author(xmlPullParser.nextText());
-                                System.out.println(author.getValue());
-                            } else if (tag.equals("Amount")) {
-                                amount = new Amount(Integer.parseInt(xmlPullParser.nextText()));
-                                System.out.println(amount.getValue());
+                                newReleaseTitle = new NewReleaseTitle(xmlPullParser.nextText());
                             } else if (tag.equals("PublicationDate")) {
                                 publicationDate = new PublicationDate(xmlPullParser.nextText());
                                 System.out.println(publicationDate.getValue());
                             } else if (tag.equals("ISBN")) {
                                 isbn = new Isbn(xmlPullParser.nextText());
                                 System.out.println(isbn.getValue());
-                            } else if (tag.equals("Publisher")) {
-                                publisher = new Publisher(xmlPullParser.nextText());
-                                System.out.println(publisher.getValue());
                             } else if (tag.equals("DetailPageURL")) {
                                 url = new Url(xmlPullParser.nextText());
                                 System.out.println(url.getValue());
@@ -80,17 +65,14 @@ class NewReleaseComicsMapper {
                         tag = xmlPullParser.getName();
                         if (tag.equals("Item")) {
                             if (bindingFlag == true) {
-                                return new NewReleaseComics(null, title, author, amount, publicationDate, isbn, publisher, url);
+                                return new NewReleaseComics(null, newReleaseTitle, publicationDate, isbn, url);
                             }
 
                             itemFlag = false;
                             bindingFlag = false;
-                            title = null;
-                            author = null;
-                            amount = null;
+                            newReleaseTitle = null;
                             isbn = null;
                             publicationDate = null;
-                            publisher = null;
                             url = null;
                         }
                         break;

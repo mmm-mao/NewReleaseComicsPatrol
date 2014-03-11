@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.mmmmao.newreleasecomicspatrol.app.datasource.DbNewReleaseComicsRepository;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComicsList;
 import com.mmmmao.newreleasecomicspatrol.app.library.DailyScheduler;
 import com.mmmmao.newreleasecomicspatrol.app.service.NewReleaseComicsCheckIntentService;
 
@@ -27,14 +27,14 @@ public class MainActivity extends Activity {
         scheduler.setByTime(NewReleaseComicsCheckIntentService.class, 4, 0, -1);
 
         DbNewReleaseComicsRepository dbNewReleaseComicsRepository = new DbNewReleaseComicsRepository(this);
-        ComicsList comicsList = dbNewReleaseComicsRepository.findAllByRegisteredComics();
+        NewReleaseComicsList newReleaseComicsList = dbNewReleaseComicsRepository.findAllByRegisteredComics();
 
         //ListView初期化
         ListView list = (ListView)findViewById(R.id.patrolComicsList);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-        for(PatrolComics patrolComics : comicsList.getList()){
-            adapter.add(patrolComics.getView());
+        for(NewReleaseComics newReleaseComics : newReleaseComicsList.getList()){
+            adapter.add(newReleaseComics.getView());
         }
 
         list.setAdapter(adapter);

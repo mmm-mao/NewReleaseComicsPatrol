@@ -1,4 +1,4 @@
-package com.mmmmao.newreleasecomicspatrol.app.domain.comics;
+package com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics;
 
 import android.util.Log;
 

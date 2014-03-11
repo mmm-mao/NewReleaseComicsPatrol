@@ -5,15 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Author;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.ComicsId;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.NewReleaseComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Publisher;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Title;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComicsId;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.Isbn;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComicsId;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseTitle;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.PublicationDate;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolTitle;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.Url;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComicsList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +25,18 @@ public class DbNewReleaseComicsRepository extends SQLiteOpenHelper {
     private final static String TABLE = "new_release";
     private final static String ID = "_id";
     private final static String TITLE = "title";
-    private final static String AUTHOR = "author";
-    private final static String PUBLISHER = "publisher";
+    private final static String PUBLICATION_DATE = "publication_date";
+    private final static String ISBN = "isbn";
+    private final static String URL = "url";
 
     private final static int DB_VERSION = 1;
 
     private final static String CREATE_TABLE = "CREATE TABLE " + TABLE + " ("
             + "_id integer primary key autoincrement, "
             + TITLE + " text not null, "
-            + AUTHOR + " text not null, "
-            + PUBLISHER  + " text not null);";
+            + PUBLICATION_DATE + " text not null, "
+            + ISBN + " text unique not null, "
+            + URL  + " text not null);";
 
     private final static String DROP_TABLE = "DROP TABLE" + TABLE;
 
@@ -56,9 +59,10 @@ public class DbNewReleaseComicsRepository extends SQLiteOpenHelper {
     public boolean register(NewReleaseComics newReleaseComics){
 
         ContentValues values = new ContentValues();
-        values.put(TITLE, newReleaseComics.getTitle().getValue());
-        values.put(AUTHOR, newReleaseComics.getAuthor().getValue());
-        values.put(PUBLISHER, newReleaseComics.getPublisher().getValue());
+        values.put(TITLE, newReleaseComics.getNewReleaseTitle().getValue());
+        values.put(PUBLICATION_DATE, newReleaseComics.getPublicationDate().getValue());
+        values.put(ISBN, newReleaseComics.getIsbn().getValue());
+        values.put(URL, newReleaseComics.getUrl().getValue());
         getWritableDatabase().insert(TABLE, null, values);
 
         close();
@@ -75,36 +79,38 @@ public class DbNewReleaseComicsRepository extends SQLiteOpenHelper {
         return true;
     }
 
-    public ComicsList findAllByRegisteredComics(){
+    public NewReleaseComicsList findAllByRegisteredComics(){
 
-        final String[] columns = new String[]{ID, TITLE, AUTHOR, PUBLISHER};
+        final String[] columns = new String[]{ID, TITLE, PUBLICATION_DATE, ISBN, URL};
 
         Cursor cursor = getReadableDatabase().query(TABLE, columns, null, null, null, null, "_id ASC");
 
 
         final int idIndex = cursor.getColumnIndex(ID);
         final int titleIndex = cursor.getColumnIndex(TITLE);
-        final int authorIndex = cursor.getColumnIndex(AUTHOR);
-        final int publisherIndex = cursor.getColumnIndex(PUBLISHER);
+        final int publicationDateIndex = cursor.getColumnIndex(PUBLICATION_DATE);
+        final int isbnIndex = cursor.getColumnIndex(ISBN);
+        final int urlIndex = cursor.getColumnIndex(URL);
 
-        List<PatrolComics> tempComicsList = new ArrayList<PatrolComics>();
+        List<NewReleaseComics> list = new ArrayList<NewReleaseComics>();
         while(cursor.moveToNext()){
 
-            ComicsId comicsId = new ComicsId(cursor.getInt(idIndex));
-            Title title = new Title(cursor.getString(titleIndex));
-            Author author = new Author(cursor.getString(authorIndex));
-            Publisher publisher = new Publisher(cursor.getString(publisherIndex));
+            NewReleaseComicsId newReleaseComicsId = new NewReleaseComicsId(cursor.getInt(idIndex));
+            NewReleaseTitle newReleaseTitle = new NewReleaseTitle(cursor.getString(titleIndex));
+            PublicationDate publicationDate = new PublicationDate(cursor.getString(publicationDateIndex));
+            Isbn isbn = new Isbn(cursor.getString(isbnIndex));
+            Url url = new Url(cursor.getString(urlIndex));
 
-            PatrolComics patrolComics = new PatrolComics(comicsId, title, author, publisher);
-            tempComicsList.add(patrolComics);
+            NewReleaseComics newReleaseComics = new NewReleaseComics(newReleaseComicsId, newReleaseTitle, publicationDate, isbn, url);
+            list.add(newReleaseComics);
         }
-        ComicsList comicsList = new ComicsList(tempComicsList);
 
+        NewReleaseComicsList newReleaseComicsList = new NewReleaseComicsList(list);
 
         cursor.close();
         close();
 
-        return comicsList;
+        return newReleaseComicsList;
 
     }
 

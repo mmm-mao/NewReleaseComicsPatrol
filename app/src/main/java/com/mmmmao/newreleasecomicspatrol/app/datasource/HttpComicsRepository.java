@@ -1,10 +1,8 @@
 package com.mmmmao.newreleasecomicspatrol.app.datasource;
 
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Author;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.NewReleaseComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Publisher;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Title;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolTitle;
 import com.mmmmao.newreleasecomicspatrol.app.library.RequestAmazon;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -23,7 +21,7 @@ public class HttpComicsRepository {
         RequestAmazon requestAmazon = new RequestAmazon();
         XmlPullParser xmlPullParser = requestAmazon.httpToXml(addSearchData);
 
-        PatrolComicsMapper patrolComicsMapper = new PatrolComicsMapper(xmlPullParser, new Title(params[0]));
+        PatrolComicsMapper patrolComicsMapper = new PatrolComicsMapper(xmlPullParser, new PatrolTitle(params[0]));
         return patrolComicsMapper.create();
 
     }
@@ -31,7 +29,7 @@ public class HttpComicsRepository {
     public NewReleaseComics searchNewReleaseComics(PatrolComics patrolComics) {
 
         Map<String, String> addSearchData = new HashMap<String, String>();
-        addSearchData.put("Title", patrolComics.getTitle().getValue());
+        addSearchData.put("Title", patrolComics.getPatrolTitle().getValue());
         addSearchData.put("Author", patrolComics.getAuthor().getValue());
         addSearchData.put("Publisher", patrolComics.getPublisher().getValue());
         addSearchData.put("Sort", "daterank");

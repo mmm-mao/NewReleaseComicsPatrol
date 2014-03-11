@@ -1,12 +1,12 @@
-package com.mmmmao.newreleasecomicspatrol.app.domain.comics;
+package com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics;
 
 import java.io.Serializable;
 
-public class Title implements Serializable {
+public class Url implements Serializable {
 
     private final String value;
 
-    public Title(String value){
+    public Url(String value){
         this.value = value;
     }
 

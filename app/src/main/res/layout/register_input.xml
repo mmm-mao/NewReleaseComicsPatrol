@@ -1,4 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,54 +10,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/title"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/title"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="22dp"
-        android:text="タイトル" />
+        android:layout_margin="10dp"
+        android:hint="タイトル"
+        bootstrapbutton:be_roundedCorners="true"
+        android:gravity="left"
+        bootstrapbutton:be_state="success"
+        />
 
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/keyword"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/title"
+        android:layout_margin="10dp"
         android:layout_below="@+id/title"
-        android:layout_marginTop="31dp"
-        android:text="その他キーワード" />
+        android:hint="その他キーワード"
+        bootstrapbutton:be_roundedCorners="true"
+        android:gravity="left"
+        bootstrapbutton:be_state="success"
+        />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/searchButton"
+        android:onClick="searchComics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:layout_alignLeft="@+id/keyword"
         android:layout_below="@+id/keyword"
-        android:layout_marginTop="55dp"
-        android:onClick="searchComics"
-        android:text="検索" />
+        android:text="検索"
+        bootstrapbutton:bb_icon_right="fa-hand-o-right"
+        bootstrapbutton:bb_roundedCorners="true"
+        bootstrapbutton:bb_type="success"
+        />
 
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginRight="18dp"
-        android:ems="20" />
-
-    <EditText
-        android:id="@+id/keyword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
 
 </RelativeLayout>

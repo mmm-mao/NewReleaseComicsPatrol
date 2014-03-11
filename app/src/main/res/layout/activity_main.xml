@@ -1,4 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,29 +10,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <Button
+
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
         android:onClick="next"
-        android:text="次へ" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="次へ"
+        bootstrapbutton:bb_icon_right="fa-hand-o-right"
+        bootstrapbutton:bb_roundedCorners="true"
+        bootstrapbutton:bb_type="success"
+        />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/registeredList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:onClick="registeredList"
-        android:text="登録済みの漫画" />
-
-    <Button
-        android:id="@+id/newReleaseCheck"
+        android:layout_below="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_margin="10dp"
+        android:text="登録済みの漫画"
+        bootstrapbutton:bb_icon_right="fa-android"
+        bootstrapbutton:bb_roundedCorners="true"
+        bootstrapbutton:bb_type="success"
+        />
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/newReleaseCheck"
         android:onClick="newReleaseCheck"
-        android:text="発売予定漫画チェック" />
+        android:layout_below="@+id/registeredList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="発売予定漫画チェック"
+        bootstrapbutton:bb_icon_right="fa-android"
+        bootstrapbutton:bb_roundedCorners="true"
+        bootstrapbutton:bb_type="success"
+        />
 
     <ListView
         android:id="@+id/patrolComicsList"

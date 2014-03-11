@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -31,14 +33,18 @@
         android:layout_marginTop="30dp"
         android:text="" />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/register"
+        android:onClick="toRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:layout_alignLeft="@+id/publisher"
         android:layout_below="@+id/publisher"
-        android:layout_marginTop="46dp"
-        android:onClick="toRegister"
-        android:text="登録" />
+        android:text="登録"
+        bootstrapbutton:bb_icon_right="fa-hand-o-right"
+        bootstrapbutton:bb_roundedCorners="true"
+        bootstrapbutton:bb_type="success"
+        />
 
 </RelativeLayout>

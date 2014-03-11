@@ -21,6 +21,8 @@ public class RegisteredListActivity extends Activity implements AdapterView.OnIt
 
     private ComicsList comicsList;
 
+    private ListView list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,7 @@ public class RegisteredListActivity extends Activity implements AdapterView.OnIt
         comicsList = dbPatrolComicsRepository.findAllByRegisteredComics();
 
         //ListView初期化
-        ListView list = (ListView)findViewById(R.id.patrolComicsList);
+        list = (ListView)findViewById(R.id.patrolComicsList);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
         for(PatrolComics patrolComics : comicsList.getList()){
@@ -73,10 +75,13 @@ public class RegisteredListActivity extends Activity implements AdapterView.OnIt
         // ContextMenuInfoを取得
         AdapterView.AdapterContextMenuInfo detailInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if ("DELETE".equals(menuName)) {
+        if ("削除".equals(menuName)) {
             DbPatrolComicsRepository dbPatrolComicsRepository = new DbPatrolComicsRepository(this);
             dbPatrolComicsRepository.delete(comicsList.getComicsIdByDesignationComics(detailInfo.position));
-            Log.d("sample", detailInfo.position + "の" + menuName + "処理を実行");
+
+            adapter.remove(comicsList.getPatrolComicsByDesignationComics(detailInfo.position).getView());
+            adapter.notifyDataSetChanged();
+            comicsList.remove(detailInfo.position);
         }
         return true;
     }

@@ -30,4 +30,18 @@
         bootstrapbutton:bb_type="success"
         />
 
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/register"
+        android:onClick="toRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textView1"
+        android:layout_toRightOf="@+id/home"
+        android:text="続けて登録"
+        bootstrapbutton:bb_icon_right="fa-hand-o-right"
+        bootstrapbutton:bb_roundedCorners="true"
+        bootstrapbutton:bb_type="success"
+        />
+
 </RelativeLayout>

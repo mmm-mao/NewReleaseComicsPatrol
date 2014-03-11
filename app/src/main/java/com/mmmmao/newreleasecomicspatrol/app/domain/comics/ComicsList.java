@@ -21,5 +21,12 @@ public class ComicsList {
         return patrolComics.getPatrolComicsId();
     }
 
+    public PatrolComics getPatrolComicsByDesignationComics(int position) {
+        return list.get(position);
+    }
+
+    public void remove(int position){
+        list.remove(position);
+    }
 
 }

@@ -31,5 +31,11 @@ public class RegisterResultActivity  extends Activity {
 
     }
 
+    public void toRegister(View v){
+
+        Intent intent = new Intent(getApplicationContext(), RegisterInputActivity.class);
+        startActivity(intent);
+
+    }
 }
 

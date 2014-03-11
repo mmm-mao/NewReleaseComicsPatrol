@@ -6,15 +6,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComicsId;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.Isbn;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComicsId;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseTitle;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.PublicationDate;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolTitle;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.Url;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComicsList;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +83,9 @@ public class DbNewReleaseComicsRepository extends SQLiteOpenHelper {
     public NewReleaseComicsList findAllByRegisteredComics(){
 
         final String[] columns = new String[]{ID, TITLE, PUBLICATION_DATE, ISBN, URL};
+        String date = new DateTime().toString("yyyyMMdd");
 
-        Cursor cursor = getReadableDatabase().query(TABLE, columns, null, null, null, null, "_id ASC");
+        Cursor cursor = getReadableDatabase().query(TABLE, columns, PUBLICATION_DATE + ">?", new String[]{date }, null, null, PUBLICATION_DATE + " ASC");
 
 
         final int idIndex = cursor.getColumnIndex(ID);

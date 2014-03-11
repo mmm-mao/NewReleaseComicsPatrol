@@ -3,18 +3,12 @@ package com.mmmmao.newreleasecomicspatrol.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.View;
 
 import com.mmmmao.newreleasecomicspatrol.app.datasource.DbPatrolComicsRepository;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
-
-import java.util.List;
 
 public class RegisterResultActivity  extends Activity {
-
-    static ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +21,14 @@ public class RegisterResultActivity  extends Activity {
         DbPatrolComicsRepository dbPatrolComicsRepository = new DbPatrolComicsRepository(this);
         dbPatrolComicsRepository.register(comics);
 
-        ComicsList comicsList = dbPatrolComicsRepository.findAllByRegisteredComics();
+    }
 
-        //ListView初期化
-        ListView list = (ListView)findViewById(R.id.patrolComicsList);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+    public void toHome(View v){
 
-        for(PatrolComics patrolComics : comicsList.getList()){
-            adapter.add(patrolComics.getView());
-        }
+        Intent intent = new Intent(this, MainActivity.class);
 
-        list.setAdapter(adapter);
-
-
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startService(intent);
 
     }
 

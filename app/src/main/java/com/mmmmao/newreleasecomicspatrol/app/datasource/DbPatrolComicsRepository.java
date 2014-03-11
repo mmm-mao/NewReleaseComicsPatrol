@@ -5,14 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Author;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComicsId;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.Publisher;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolTitle;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.ComicsList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +70,6 @@ public class DbPatrolComicsRepository extends SQLiteOpenHelper {
 
         close();
 
-        Log.d("sample", "delete");
         return true;
     }
 

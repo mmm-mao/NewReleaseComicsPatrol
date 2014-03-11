@@ -1,4 +1,4 @@
-package com.mmmmao.newreleasecomicspatrol.app.domain.comicslist;
+package com.mmmmao.newreleasecomicspatrol.app.domain.comics;
 
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
 

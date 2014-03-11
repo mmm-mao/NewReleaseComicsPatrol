@@ -11,52 +11,21 @@
     tools:context=".MainActivity" >
 
 
-
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/button1"
-        android:onClick="next"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="次へ"
-        bootstrapbutton:bb_icon_right="fa-hand-o-right"
-        bootstrapbutton:bb_roundedCorners="true"
-        bootstrapbutton:bb_type="success"
-        />
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/registeredList"
-        android:onClick="registeredList"
-        android:layout_below="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="登録済みの漫画"
-        bootstrapbutton:bb_icon_right="fa-android"
-        bootstrapbutton:bb_roundedCorners="true"
-        bootstrapbutton:bb_type="success"
-        />
-
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/newReleaseCheck"
-        android:onClick="newReleaseCheck"
-        android:layout_below="@+id/registeredList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="発売予定漫画チェック"
-        bootstrapbutton:bb_icon_right="fa-android"
-        bootstrapbutton:bb_roundedCorners="true"
-        bootstrapbutton:bb_type="success"
-        />
+        android:layout_marginTop="18dp"
+        android:text="発売予定の漫画一覧" />
 
     <ListView
         android:id="@+id/patrolComicsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="300dp" >
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_margin="10dp" >
     </ListView>
 
 </RelativeLayout>

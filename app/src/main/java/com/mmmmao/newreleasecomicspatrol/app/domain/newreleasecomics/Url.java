@@ -10,7 +10,12 @@ public class Url implements Serializable {
         this.value = value;
     }
 
-    public String getValue() {
+    public String createHtmlLink(NewReleaseTitle newReleaseTitle) {
+
+        return "<a href=" + value + ">" + newReleaseTitle.getValue() + "</a>";
+    }
+
+    public String getValue(){
         return value;
     }
 

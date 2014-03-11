@@ -1,6 +1,7 @@
 package com.mmmmao.newreleasecomicspatrol.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -12,9 +13,7 @@ import android.widget.ListView;
 
 import com.mmmmao.newreleasecomicspatrol.app.datasource.DbPatrolComicsRepository;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
-
-import java.util.List;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.ComicsList;
 
 public class RegisteredListActivity extends Activity implements AdapterView.OnItemLongClickListener {
 
@@ -60,7 +59,7 @@ public class RegisteredListActivity extends Activity implements AdapterView.OnIt
         super.onCreateContextMenu(menu, view, menuInfo);
 // コンテキストメニューの設定
         menu.setHeaderTitle("Message");
-        menu.add(0, 0, 0, "DELETE");
+        menu.add(0, 0, 0, "削除");
     }
 
     /*
@@ -78,12 +77,17 @@ public class RegisteredListActivity extends Activity implements AdapterView.OnIt
             DbPatrolComicsRepository dbPatrolComicsRepository = new DbPatrolComicsRepository(this);
             dbPatrolComicsRepository.delete(comicsList.getComicsIdByDesignationComics(detailInfo.position));
             Log.d("sample", detailInfo.position + "の" + menuName + "処理を実行");
-        } else if ("menu2".equals(menuName)) {
-            Log.d("sample", detailInfo .position + "の" + menuName + "処理を実行");
-        } else if ("menu3".equals(menuName)) {
-            Log.d("sample", detailInfo .position + "の" + menuName + "処理を実行");
         }
         return true;
+    }
+
+    public void toHome(View v){
+
+        Intent intent = new Intent(this, MainActivity.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startService(intent);
+
     }
 
 }

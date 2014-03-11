@@ -9,7 +9,7 @@ import com.mmmmao.newreleasecomicspatrol.app.datasource.DbPatrolComicsRepository
 import com.mmmmao.newreleasecomicspatrol.app.datasource.HttpComicsRepository;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comicslist.ComicsList;
+import com.mmmmao.newreleasecomicspatrol.app.domain.comics.ComicsList;
 
 public class NewReleaseComicsCheckIntentService extends IntentService {
 

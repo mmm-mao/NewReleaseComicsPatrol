@@ -6,7 +6,6 @@ import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.Isbn;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseTitle;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.PublicationDate;
-import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolTitle;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.Url;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -50,13 +49,10 @@ class NewReleaseComicsMapper {
                                 newReleaseTitle = new NewReleaseTitle(xmlPullParser.nextText());
                             } else if (tag.equals("PublicationDate")) {
                                 publicationDate = new PublicationDate(xmlPullParser.nextText());
-                                System.out.println(publicationDate.getValue());
                             } else if (tag.equals("ISBN")) {
                                 isbn = new Isbn(xmlPullParser.nextText());
-                                System.out.println(isbn.getValue());
                             } else if (tag.equals("DetailPageURL")) {
                                 url = new Url(xmlPullParser.nextText());
-                                System.out.println(url.getValue());
                             }
 
                         }

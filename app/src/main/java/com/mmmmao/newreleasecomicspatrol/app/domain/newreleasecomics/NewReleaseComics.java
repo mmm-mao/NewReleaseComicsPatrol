@@ -1,5 +1,7 @@
 package com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics;
 
+import android.text.Html;
+
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComicsId;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolTitle;
 
@@ -30,10 +32,11 @@ public class NewReleaseComics implements Serializable {
         return publicationDate.verify();
     }
 
-    public String getView(){
-        return newReleaseTitle.getValue() + ":" + publicationDate.getValue();
-    }
+    public CharSequence getTitleUrlLink(){
 
+        String html = url.createHtmlLink(newReleaseTitle);
+        return Html.fromHtml(html);
+    }
 
     public NewReleaseTitle getNewReleaseTitle() {
         return newReleaseTitle;

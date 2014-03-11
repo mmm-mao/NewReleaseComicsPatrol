@@ -12,20 +12,25 @@ public class PublicationDate implements Serializable {
     private final String value;
 
     public PublicationDate(String value){
-        this.value = value;
+
+        this.value = value.replaceAll("-", "");
     }
 
     public String getValue() {
+
         return value;
+    }
+
+    public String getValueForView(){
+        return "発売日 : " + value.substring(0, 4) + "/" + value.substring(4, 6) + "/" + value.substring(6);
     }
 
     public boolean verify(){
 
-        DateTime publicationDate = DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime(value);
+        DateTime publicationDate = DateTimeFormat.forPattern("yyyyMMdd").parseDateTime(value);
         DateTime nowDate = new DateTime();
-
-        Log.d("発売日", publicationDate.toString());
         return publicationDate.isAfter(nowDate);
+
     }
 }
 

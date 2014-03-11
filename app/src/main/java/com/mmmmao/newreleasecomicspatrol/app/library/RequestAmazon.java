@@ -21,8 +21,6 @@ public class RequestAmazon {
 
     public XmlPullParser httpToXml(Map<String, String> addSearchData){
 
-        System.out.println("aaaaaaaa");
-
         try {
 
             SignedRequestsHelper helper;

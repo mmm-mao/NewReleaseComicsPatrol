@@ -3,7 +3,9 @@ package com.mmmmao.newreleasecomicspatrol.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.MovementMethod;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -12,11 +14,16 @@ import com.mmmmao.newreleasecomicspatrol.app.datasource.DbNewReleaseComicsReposi
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
 import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComicsList;
 import com.mmmmao.newreleasecomicspatrol.app.library.DailyScheduler;
+import com.mmmmao.newreleasecomicspatrol.app.library.NewReleaseComicsListItemAdapter;
 import com.mmmmao.newreleasecomicspatrol.app.service.NewReleaseComicsCheckIntentService;
 
 public class MainActivity extends Activity {
 
-    static ArrayAdapter<String> adapter;
+    static NewReleaseComicsListItemAdapter adapter;
+
+    public static final int REGISTER = 0;
+    public static final int SHOW_LIST = 1;
+    public static final int CHECK = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,38 +31,54 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         DailyScheduler scheduler = new DailyScheduler(getApplicationContext());
-        scheduler.setByTime(NewReleaseComicsCheckIntentService.class, 4, 0, -1);
+        scheduler.setByTime(NewReleaseComicsCheckIntentService.class, 20, 45, -1);
 
         DbNewReleaseComicsRepository dbNewReleaseComicsRepository = new DbNewReleaseComicsRepository(this);
         NewReleaseComicsList newReleaseComicsList = dbNewReleaseComicsRepository.findAllByRegisteredComics();
 
         //ListView初期化
         ListView list = (ListView)findViewById(R.id.patrolComicsList);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-
-        for(NewReleaseComics newReleaseComics : newReleaseComicsList.getList()){
-            adapter.add(newReleaseComics.getView());
-        }
+        adapter = new NewReleaseComicsListItemAdapter(this, newReleaseComicsList.getList());
 
         list.setAdapter(adapter);
 
     }
 
+    // オプションメニューが最初に呼び出される時に1度だけ呼び出されます
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        // メニューアイテムを追加します
+        menu.add(Menu.NONE, REGISTER, Menu.NONE, "登録");
+        menu.add(Menu.NONE, SHOW_LIST, Menu.NONE, "一覧表示");
+        menu.add(Menu.NONE, CHECK, Menu.NONE, "チェック");
+        return super.onCreateOptionsMenu(menu);
     }
 
-    public void next(View v) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case REGISTER:
+                registerAction();
+                return true;
+
+            case SHOW_LIST:
+                registeredList();
+                return true;
+            case CHECK:
+                newReleaseCheck();
+                return true;
+
+        }
+        return false;
+    }
+
+    private void registerAction() {
 
         Intent intent = new Intent(getApplicationContext(), RegisterInputActivity.class);
         startActivity(intent);
 
     }
 
-    public void registeredList(View v) {
+    private void registeredList() {
 
         Intent intent = new Intent(getApplicationContext(), RegisteredListActivity.class);
 
@@ -63,7 +86,7 @@ public class MainActivity extends Activity {
 
     }
 
-    public void newReleaseCheck(View v){
+    private void newReleaseCheck(){
 
         Intent intent = new Intent(this, NewReleaseComicsCheckIntentService.class);
         startService(intent);

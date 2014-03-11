@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         DailyScheduler scheduler = new DailyScheduler(getApplicationContext());
-        scheduler.setByTime(NewReleaseComicsCheckIntentService.class, 20, 45, -1);
+        scheduler.setByTime(NewReleaseComicsCheckIntentService.class, 21, 10, -1);
 
         DbNewReleaseComicsRepository dbNewReleaseComicsRepository = new DbNewReleaseComicsRepository(this);
         NewReleaseComicsList newReleaseComicsList = dbNewReleaseComicsRepository.findAllByRegisteredComics();

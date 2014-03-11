@@ -26,9 +26,8 @@ public class RegisterResultActivity  extends Activity {
     public void toHome(View v){
 
         Intent intent = new Intent(this, MainActivity.class);
-
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startService(intent);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
 
     }
 

@@ -2,11 +2,16 @@ package com.mmmmao.newreleasecomicspatrol.app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mmmmao.newreleasecomicspatrol.app.datasource.DbNewReleaseComicsRepository;
+import com.mmmmao.newreleasecomicspatrol.app.datasource.HttpComicsRepository;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
 
 public class RegisterConfirmActivity  extends Activity {
 
@@ -32,9 +37,37 @@ public class RegisterConfirmActivity  extends Activity {
     }
 
     public void toRegister(View v){
-        Intent intent = new Intent(getApplicationContext(), RegisterResultActivity.class);
-        intent.putExtra("comics", comics);
-        startActivity(intent);
+
+
+        GetXmlAsyncTask getXmlAsyncTask = new GetXmlAsyncTask();
+        getXmlAsyncTask.execute(comics);
+    }
+
+    private class GetXmlAsyncTask extends AsyncTask<PatrolComics, Void, NewReleaseComics> {
+
+        @Override
+        protected NewReleaseComics doInBackground(PatrolComics... params) {
+
+            HttpComicsRepository httpComicsRepository = new HttpComicsRepository();
+            return httpComicsRepository.searchNewReleaseComics(comics);
+
+        }
+
+        @Override
+        protected void onPostExecute(NewReleaseComics newReleaseComics) {
+
+            if(newReleaseComics == null){
+                return;
+            }
+
+            DbNewReleaseComicsRepository dbNewReleaseComicsRepository = new DbNewReleaseComicsRepository(getApplicationContext());
+            dbNewReleaseComicsRepository.register(newReleaseComics);
+
+            Intent intent = new Intent(getApplicationContext(), RegisterResultActivity.class);
+            intent.putExtra("comics", comics);
+            startActivity(intent);
+        }
+
     }
 
 }

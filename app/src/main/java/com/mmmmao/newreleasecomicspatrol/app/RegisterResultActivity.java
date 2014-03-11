@@ -5,10 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mmmmao.newreleasecomicspatrol.app.datasource.DbNewReleaseComicsRepository;
 import com.mmmmao.newreleasecomicspatrol.app.datasource.DbPatrolComicsRepository;
+import com.mmmmao.newreleasecomicspatrol.app.datasource.HttpComicsRepository;
 import com.mmmmao.newreleasecomicspatrol.app.domain.comics.PatrolComics;
+import com.mmmmao.newreleasecomicspatrol.app.domain.newreleasecomics.NewReleaseComics;
 
 public class RegisterResultActivity  extends Activity {
+
+    private final static HttpComicsRepository httpComicsRepository = new HttpComicsRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -28,7 +28,16 @@ public class NewReleaseComicsCheckIntentService extends IntentService {
         for(PatrolComics patrolComics : comicsList.getList()){
             NewReleaseComics newReleaseComics = httpComicsRepository.searchNewReleaseComics(patrolComics);
 
-            if(newReleaseComics != null && newReleaseComics.registerVerify()){
+            if(newReleaseComics == null){
+                return;
+            }
+
+            if(newReleaseComics.registerVerify() == false){
+                return;
+            }
+
+            NewReleaseComics newReleaseComics1 = dbNewReleaseComicsRepository.findByIsbn(newReleaseComics.getIsbn());
+            if(newReleaseComics1 == null){
                 dbNewReleaseComicsRepository.register(newReleaseComics);
             }
 

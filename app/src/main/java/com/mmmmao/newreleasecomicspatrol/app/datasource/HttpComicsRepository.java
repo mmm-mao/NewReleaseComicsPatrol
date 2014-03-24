@@ -34,6 +34,7 @@ public class HttpComicsRepository {
         addSearchData.put("Publisher", patrolComics.getPublisher().getValue());
         addSearchData.put("Sort", "daterank");
         addSearchData.put("MaximumPrice", "800");
+        //addSearchData.put("ResponseGroup", "Images");
 
         RequestAmazon requestAmazon = new RequestAmazon();
         XmlPullParser xmlPullParser = requestAmazon.httpToXml(addSearchData);

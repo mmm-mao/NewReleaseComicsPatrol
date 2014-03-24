@@ -22,13 +22,13 @@ import java.util.List;
 
 public class DbNewReleaseComicsRepository extends SQLiteOpenHelper {
 
-    private final static String DB = "comics.db";
-    private final static String TABLE = "new_release";
-    private final static String ID = "_id";
-    private final static String TITLE = "title";
-    private final static String PUBLICATION_DATE = "publication_date";
-    private final static String ISBN = "isbn";
-    private final static String URL = "url";
+    public final static String DB = "comics.db";
+    public final static String TABLE = "new_release";
+    public final static String ID = "_id";
+    public final static String TITLE = "title";
+    public final static String PUBLICATION_DATE = "publication_date";
+    public final static String ISBN = "isbn";
+    public final static String URL = "url";
 
     private final static int DB_VERSION = 1;
 
@@ -78,6 +78,18 @@ public class DbNewReleaseComicsRepository extends SQLiteOpenHelper {
         close();
 
         return true;
+    }
+
+    public NewReleaseComics findByIsbn(Isbn isbn){
+        final String[] columns = new String[]{ID, TITLE, PUBLICATION_DATE, ISBN, URL};
+
+        Cursor cursor = getReadableDatabase().query(TABLE, columns, ISBN + "=?", new String[]{isbn.getValue() }, null, null, null);
+
+        if(cursor.moveToFirst() == false){
+            return null;
+        }
+
+        return NewReleaseComicsMapperForDb.create(cursor);
     }
 
     public NewReleaseComicsList findAllByRegisteredComics(){
